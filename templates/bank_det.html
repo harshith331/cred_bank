@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body class="bodypad">
+         <!-- <form method="post" enctype="multipart/form-data" action="/upload"> -->
+    <nav class="navbar navbar-dark bg-dark" style="">
+        <!-- Navbar content -->
+        <h1 style="color: ivory;">BANK INFO</h1>
+    </nav>
+    <br>
+    <div class="container">
+    <form class="form-inline" method="POST" id="form-main" action="{% url 'byifsc' %}">
+        <div class="row" style="margin: 0 auto;">
+            <div class="col">
+                <h3>by IFSC</h3>
+                <input class="form-control mr-sm-6" type="search" name="ans" placeholder="ifsc code" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </div>
+    </form>
+    <form class="form-inline" method="POST" id="form-main" action="{% url 'bydetails' %}">
+        <div class="row" style="margin: 0 auto;">
+            <div class="col">
+                <h3>by CITY and NAME</h3>
+                <input class="form-control mr-sm-6" type="search" name="city" placeholder="city" aria-label="Search">
+                <input class="form-control mr-sm-6" type="search" name="bank_name" placeholder="bank_name" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+    </div>
+    <br>
+    <div class="container">
+    {%if error%}
+        <div class="alert alert-danger" role="alert">
+            <h3 style="text-align: center;"> Invalid Credentials </h3>
+        </div>
+    {%else%}
+        <div class="alert alert-success" role="alert">
+            <h3 style="text-align: center;">BANK LIST</h3>
+        </div>
+        <h4 style="border: lightblue 2px solid;text-align: center;">{{num}} RESULTS</h4>
+        {% for data in data_total %}
+        <span style="font-size: 20px;font-weight: 1000;">{{ forloop.counter }}- </span> 
+            <div class="card" style="margin: 0 auto;">
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">IFSC CODE: <span style="color:green">{{data.ifsc}}</span></li>
+                <li class="list-group-item">NAME: <span >{{data.bank_name}}</span></li>
+                <li class="list-group-item">BRANCH: <span >{{data.branch}}</span></li>
+                <li class="list-group-item">BANK ID: <span >{{data.bank_id}}</span></li>
+                </ul>
+                <div class="card-body">
+                    <h5 class="card-title">ADDRESS:</h5>
+                    <p class="card-text">{{data.address}}} </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">CITY: <span >{{data.city}}</span></li>
+                    <li class="list-group-item">DISTRICT: <span >{{data.district}}</span></li>
+                    <li class="list-group-item">STATE: <span >{{data.state}}</span></li>
+                </ul>
+            </div>
+            <br>
+        {%endfor%}
+    {%endif%}
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</html>
