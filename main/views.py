@@ -20,19 +20,19 @@ def upload(request):
             with open(r'C:\Users\svsha\OneDrive\Desktop\proj2\bank_det\main\bank_branches.csv','r', encoding="utf8") as csv_file:
                 csv_reader=csv.reader(csv_file)
                 for i in csv_reader:
-                    bank_now=bank.objects.filter(ifsc=i[0])[0]
-                    if not bank_now :
-                        print(i)
-                        bank.objects.create(
-                        ifsc=i[0],
-                        bank_id=i[1],
-                        branch=i[2],
-                        address=i[3],
-                        city=i[4],
-                        district=i[5],
-                        state=i[6],
-                        bank_name=i[7],
-                        )
+                    # bank_now=bank.objects.filter(ifsc=i[0])[0]
+                    # if not bank_now :
+                    print(i)
+                    bank.objects.create(
+                    ifsc=i[0],
+                    bank_id=i[1],
+                    branch=i[2],
+                    address=i[3],
+                    city=i[4],
+                    district=i[5],
+                    state=i[6],
+                    bank_name=i[7],
+                    )
                 return JsonResponse({"success":True})
         else:
             return JsonResponse({"success":False , "message":"invalid upload code"})
